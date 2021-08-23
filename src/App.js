@@ -4,6 +4,7 @@ import Homepage from "./pages/homepage/HomePage";
 import RandomPages from "./pages/RandomPages";
 import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/Header";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUp";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Homepage />
+        </Route>
+        <Route exact path="/signin">
+          <SignInAndSignUp />
         </Route>
         <Route exact path="/shop">
           <ShopPage />
