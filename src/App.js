@@ -1,7 +1,8 @@
 import { Route, Switch } from "react-router";
 import "./App.css";
-import Homepage from "./pages/Homepage";
+import Homepage from "./pages/homepage/HomePage";
 import RandomPages from "./pages/RandomPages";
+import ShopPage from "./pages/shop/ShopPage";
 
 function App() {
   return (
@@ -9,6 +10,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Homepage />
+        </Route>
+        <Route exact path="/shop">
+          <ShopPage />
         </Route>
         <Route path="/hats">
           <RandomPages heading="HATS" />
