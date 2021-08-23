@@ -10,9 +10,6 @@ const Directory = () => {
   return (
     <div className="directory-menu">
       {sections.map(({ title, imageUrl, id, size }) => {
-        console.log(`<===OKAY===>`);
-        console.log(`ID: ${id}`);
-        console.log(`Title: ${title}`);
         return (
           <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
         );
