@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useState, useEffect } from "react";
 
 import "./App.css";
@@ -11,17 +11,24 @@ import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUp";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(null);
-  var unsubscribeFromAuth = null;
 
   useEffect(() => {
-    unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setcurrentUser(user);
-      console.log(user);
-      return () => {
-        unsubscribeFromAuth();
-      };
+    var unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          setcurrentUser({ id: snapShot.id, ...snapShot.data() });
+        });
+      }
+      setcurrentUser(userAuth);
     });
-  });
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, []);
+
+  console.log(currentUser);
 
   return (
     <div>
@@ -30,10 +37,10 @@ function App() {
         <Route exact path="/">
           <Homepage />
         </Route>
-        <Route exact path="/signin">
+        <Route path="/sign-in-and-sign-up">
           <SignInAndSignUp />
         </Route>
-        <Route exact path="/shop">
+        <Route path="/shop">
           <ShopPage />
         </Route>
         <Route path="/hats">
