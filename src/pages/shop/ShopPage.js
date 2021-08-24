@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { shopData } from "./ShopData";
+import shopData from "./ShopData";
 import CollectionPreview from "../../components/collection-preview/CollectionPreview";
 
 const ShopPage = () => {
