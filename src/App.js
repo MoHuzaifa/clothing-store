@@ -1,6 +1,7 @@
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 import Homepage from "./pages/homepage/HomePage";
@@ -8,38 +9,43 @@ import RandomPages from "./pages/RandomPages";
 import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUp";
+import { setCurrentUser } from "./redux/user/userActions";
 
 function App() {
-  const [currentUser, setcurrentUser] = useState(null);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
+    const updateCurrentUser = (user) => dispatch(setCurrentUser(user));
     var unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
-          setcurrentUser({ id: snapShot.id, ...snapShot.data() });
+          updateCurrentUser({ id: snapShot.id, ...snapShot.data() });
         });
       }
-      setcurrentUser(userAuth);
+      updateCurrentUser(userAuth);
     });
     return () => {
       unsubscribeFromAuth();
     };
-  }, []);
-
-  console.log(currentUser);
+  }, [dispatch]);
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path="/">
           <Homepage />
         </Route>
-        <Route path="/sign-in-and-sign-up">
-          <SignInAndSignUp />
-        </Route>
+        <Route
+          exact
+          path="/sign-in-and-sign-up"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
         <Route path="/shop">
           <ShopPage />
         </Route>
@@ -59,5 +65,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

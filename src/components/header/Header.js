@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
+import { useSelector } from "react-redux";
 
 import "./Header.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   return (
     <div className="header">
       <Link to="/">
@@ -31,5 +34,4 @@ const Header = ({ currentUser }) => {
     </div>
   );
 };
-
 export default Header;
