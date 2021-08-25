@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 import Homepage from "./pages/homepage/HomePage";
-import RandomPages from "./pages/RandomPages";
 import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUp";
