@@ -1,4 +1,12 @@
-const shopData = [
+export const collectionIdToMap = {
+  hats: 1,
+  sneakers: 2,
+  jackets: 3,
+  womens: 4,
+  mens: 5,
+};
+
+export const shopData = [
   {
     id: 1,
     title: "Hats",
@@ -245,5 +253,3 @@ const shopData = [
     ],
   },
 ];
-
-export default shopData;

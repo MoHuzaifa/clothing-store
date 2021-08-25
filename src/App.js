@@ -46,21 +46,7 @@ function App() {
             currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
           }
         />
-        <Route path="/shop">
-          <ShopPage />
-        </Route>
-        <Route path="/hats">
-          <RandomPages heading="HATS" />
-        </Route>
-        <Route path="/jackets">
-          <RandomPages heading="JACKETS" />
-        </Route>
-        <Route path="/sneakers">
-          <RandomPages heading="SNEAKERS" />
-        </Route>
-        <Route path="*">
-          <RandomPages heading="WRONG URL" />
-        </Route>
+        <Route path="/shop" component={ShopPage} />
       </Switch>
     </div>
   );
