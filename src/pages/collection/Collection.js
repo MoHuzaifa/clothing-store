@@ -1,16 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import CollectionItem from "../../components/collection-item/CollectionItem";
-import { shopData, collectionIdToMap } from "../../pages/shop/ShopData";
+import { collectionIdToMap } from "../../pages/shop/ShopData";
 import "./Collection.scss";
 
 const CollectionPage = ({ match }) => {
+  const shopData = useSelector((state) => state.shop.collections);
+
   const [collectionTitle, setCollectionTitle] = useState();
   const [collectionItems, setCollectionItems] = useState(() => {
     for (var i = 0; i < shopData.length; i++) {
-      if (shopData[i].id === collectionIdToMap[match.params.collectionId]) {
-        setCollectionTitle(shopData[i.title]);
+      if (shopData[i].title.toLowerCase() === match.params.collectionId) {
+        setCollectionTitle(shopData[i].title);
         return shopData[i].items;
       }
     }
