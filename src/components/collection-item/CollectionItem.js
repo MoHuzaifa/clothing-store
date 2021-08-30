@@ -10,7 +10,7 @@ const CollectionItem = ({ item }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="collection-item">
+    <div data-testid={item.id} className="collection-item">
       <div
         className="image"
         style={{

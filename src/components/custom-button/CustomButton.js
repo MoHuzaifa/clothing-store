@@ -10,6 +10,7 @@ const CustomButton = ({
 }) => {
   return (
     <button
+      data-testid="customButton-1"
       className={`${inverted ? `inverted` : ``} ${
         isGoogleSignIn ? `google-sign-in` : ``
       } custom-button`}
